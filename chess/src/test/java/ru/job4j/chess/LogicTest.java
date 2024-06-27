@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.job4j.chess.firuges.Cell;
+import ru.job4j.chess.firuges.Figure;
 import ru.job4j.chess.firuges.black.BishopBlack;
 
 import static org.assertj.core.api.Assertions.*;
@@ -52,7 +53,10 @@ public class LogicTest {
 
     @Test
     void whenMoveFromC1ToG5ButG5OccupiedThenThrowOccupiedCellException() {
-        logic.add(new BishopBlack(Cell.C1));
+        Figure initialFigure = new BishopBlack(Cell.C1);
+        logic.add(initialFigure);
+        Figure occupyingFigure = new BishopBlack(Cell.G5);
+        logic.add(occupyingFigure);
         assertThatThrownBy(() -> logic.move(Cell.C1, Cell.G5))
                 .isInstanceOf(OccupiedCellException.class)
                 .hasMessageContaining("Cell G5 is occupied.");
